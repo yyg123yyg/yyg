@@ -8,6 +8,13 @@ export function getDetail(iid) {
     }
   })
 }
+//商品推介数据
+export function getRecommend() {
+  return request({
+    url: "/recommend"
+  })
+}
+
 
 //商品基本信息
 export class Goods {
@@ -36,7 +43,7 @@ export class Shop {
 }
 
 
-// 尺寸数据
+// 参数尺寸数据
 export class GoodsParams {
   constructor(info, rule) {
     // 注: images可能没有值(某些商品有值, 某些没有值)

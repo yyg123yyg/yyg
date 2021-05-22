@@ -1,12 +1,13 @@
 <template>
   <div class="goods-item" @click="itemClick">
-    <img :src="goodsItem.show.img" alt="" @load="imageLoad">
+    <img :src="showImage" alt="" @load="imageLoad">
     <div class="goods-info">
       <p class="title">{{goodsItem.title}}</p>
       <span class="price">{{goodsItem.price}}</span>
       <span class="collect">{{goodsItem.cafv}}</span>
     </div>
   </div>
+
 </template>
 
 <script>
@@ -20,16 +21,27 @@
                 }
             }
         },
+        //判断拿到的数据
+        computed: {
+            showImage() {
+                return this.goodsItem.image || this.goodsItem.show.img
+            }
+        },
         methods: {
             //加载完成
             imageLoad() {
                 this.$bus.$emit('itemImageLoad');
+                // if (this.$route.path.includes('/home')) {
+                //     this.$bus.$emit('itemImageLoad');
+                // } else if (this.$route.path.includes('/detail')) {
+                //     this.$bus.$emit('detailImageLoad');
+                // }
             },
             //跳转到详情页
-            itemClick(){
-                this.$router.push('/detail/'+this.goodsItem.iid)
+            itemClick() {
+                this.$router.push('/detail/' + this.goodsItem.iid)
             }
-    }
+        }
     }
 </script>
 

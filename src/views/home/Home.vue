@@ -40,6 +40,7 @@
     import BackTop from "components/contens/backTop/BackTop";
     // 滚动
     import Scroll from "components/common/scroll/Scroll";
+    import {itemListenerMixin} from "components/common/utils/mixin";
     //网络
     import {
         getHomeMultiData,
@@ -63,9 +64,11 @@
                 isShowBackTop: false,
                 tabOffsetTop: 0,
                 isTabFixed: false,
-                saveY:0
+                saveY: 0,
+                itemImgListener: null
             }
         },
+        mixins:[itemListenerMixin],
 
         components: {
             HomeSwiper,
@@ -89,12 +92,13 @@
         mounted() {
             //调用防抖函数
             const refresh = debounce(this.$refs.scroll.refresh, 500);
-            //监听item中图片的加载完成main.js中利用原型
-            this.$bus.$on('itemImageLoad', () => {
+            this.itemImgListener = () => {
                 //调用多次
                 refresh()
-            })
-
+            }
+            //监听item中图片的加载完成main.js中利用原型
+            this.$bus.$on('itemImageLoad', this.itemImgListener)
+            this.tabClick(0)
         },
         computed: {
             showGoods() {
@@ -115,8 +119,11 @@
                         this.currentType = 'sell';
                         break;
                 }
-                this.$refs.tabControl1.currentIndex = index;
-                this.$refs.tabControl2.currentIndex = index;
+                if(this.$refs.tabControl1!==undefined){
+                    this.$refs.tabControl1.currentIndex = index;
+                    this.$refs.tabControl2.currentIndex = index;
+                }
+
             },
             // 网络请求
             getHomeMultiData() {
@@ -131,6 +138,7 @@
             getHomeGoods(type) {
                 const page = this.goods[type].page + 1;
                 getHomeGoods(type, page).then(res => {
+                    // console.log(res)
                     this.goods[type].list.push(...res.data.list);
                     this.goods[type].page += 1;
                     //完成上拉加载更多
@@ -165,11 +173,15 @@
         //记录当前位置
         activated() {
             // console.log('act')
-            this.$refs.scroll.scrollTo(0,this.saveY,0);
+            this.$refs.scroll.scrollTo(0, this.saveY, 0);
             this.$refs.scroll.refresh()
         },
+        //离开位置
         deactivated() {
-            this.saveY=this.$refs.scroll.getScrollY()
+            //保存Y值
+            this.saveY = this.$refs.scroll.getScrollY()
+            //取消全局事件监听
+            this.$bus.$off('itemImageLoad',)
         }
     }
 </script>

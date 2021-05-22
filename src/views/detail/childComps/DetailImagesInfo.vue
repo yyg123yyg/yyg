@@ -5,6 +5,7 @@
       <div class="desc">{{ imagesInfo.desc }}</div>
       <div class="end"></div>
     </div>
+
     <div :key="index" v-for="(item, index) in imagesInfo.detailImage">
       <div class="info-key">{{ item.key }}</div>
       <div class="info-list">
@@ -41,9 +42,9 @@
             imgLoad() {
                 //为了回调一次，判断所有图片都加载完成
                 // this.count+=1
-                if (++this.count === this.imagesLength) {
+                // if (++this.count === this.imagesLength) {
                     this.$emit("imgLoad");
-                }
+                // }
             }
         },
         //监听属性的变化
