@@ -19,7 +19,7 @@
       <goods-list ref="recommend" :goods="recommends"/>
     </scroll>
     <!--      底部-->
-    <detail-bottom-bar class=""/>
+    <detail-bottom-bar @addCart="addToCart"/>
     <back-top @click.native="backClick" v-show="isShowBackTop"></back-top>
 
   </div>
@@ -49,13 +49,13 @@
     //网络请求方法
     import {getDetail, Goods, Shop, GoodsParams, getRecommend} from "network/detail";
     import {debounce} from "components/common/utils/utils";
-    import {itemListenerMixin,backTopMixin} from "components/common/utils/mixin";
+    import {itemListenerMixin, backTopMixin} from "components/common/utils/mixin";
     // import BackTop from "../../components/contens/backTop/BackTop";
 
 
     export default {
         name: "Detail",
-        mixins: [itemListenerMixin,backTopMixin],
+        mixins: [itemListenerMixin, backTopMixin],
         data() {
             return {
                 iid: null,
@@ -124,6 +124,7 @@
             //     this.themeTopYs.push(this.$refs.comment.$el.offsetTop);
             //     this.themeTopYs.push(this.$refs.recommend.$el.offsetTop);
             // })
+            //获取标题相应的高度
             this.getThemeTopY = debounce(() => {
                 this.themeTopYs = [];
                 this.themeTopYs.push(0);
@@ -139,7 +140,7 @@
                 //图片刷新
 
                 this.$refs.scroll.refresh();
-
+//图片加载完成，获取相应的高度
                 this.getThemeTopY();
                 console.log('df')
                 //图片刷新直接获取
@@ -173,10 +174,21 @@
 
                 //position.y和主题中的值进行对比
 
+            },
+            addToCart() {
+                //获取商品信息
+                const product = {};
+                product.image = this.topImages[0];
+                product.title = this.goods.title;
+                product.desc = this.goods.desc;
+                product.price = this.goods.realPrice;
+                product.iid = this.iid;
+                //将商品添加到购物车
+                // this.$store.commit('addCart', product)
+                this.$store.dispatch('addCart',product)
             }
         },
         mounted() {
-
 
         },
         destroyed() {

@@ -23,7 +23,7 @@ export const backTopMixin = {
     }
   },
   mounted(){
-    console.log('dfd')
+    // console.log('dfd')
   },
   methods:{
     backClick() {
