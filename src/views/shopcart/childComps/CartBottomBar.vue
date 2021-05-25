@@ -1,13 +1,14 @@
 <template>
   <div class="bottom-bar">
     <div class="check-button">
-      <CheckBotton class="CheckBotton"/>
+      <CheckBotton @click.native="checkClick"
+                   :isChecked="isSelcetAll" class="CheckBotton"/>
       <div class="text">全选</div>
     </div>
     <div class="totalPrice">
       合计:{{totalPrice}}
     </div>
-    <div class="calculate">
+    <div class="calculate" @click="clacClick">
       去结算：{{checkLength}}
     </div>
   </div>
@@ -24,6 +25,26 @@
         data() {
             return {}
         },
+        methods: {
+            checkClick() {
+                // 全部选中
+                if (this.isSelcetAll) {
+                    this.$store.state.cartList.forEach(item => {
+                        return item.checked = false
+                    })
+                } else {//有部分或全部选中
+                    this.$store.state.cartList.forEach(item => {
+                        return item.checked = true
+                    })
+                }
+            },
+            clacClick(){
+                if(!this.isSelcetAll){
+                    this.$toast.show('请选择商品!',1000)
+                }
+            }
+
+        },
         computed: {
             totalPrice() {
                 return '￥' + this.$store.state.cartList.filter(item => {
@@ -34,6 +55,11 @@
             },
             checkLength() {
                 return this.$store.state.cartList.filter(item => item.checked).length
+            },
+            isSelcetAll() {
+                // if (this.$store.state.cartList.length)
+                return this.$store.state.cartList.length !== 0 && this.$store.state.cartList.every(item => item.checked)
+
             }
         }
     }
@@ -43,7 +69,7 @@
   .bottom-bar {
     height: 40px;
     background-color: #ccc;
-    position: absolute;
+    position: fixed;
     left: 0;
     right: 0;
     bottom: 49px;
@@ -73,14 +99,17 @@
   .totalPrice {
     line-height: 40px;
     margin-left: 10px;
+    background-color: orange;
+    width: 140px;
   }
-  .calculate{
+
+  .calculate {
+    flex: 1;
     line-height: 40px;
-
-
-    margin-left: 62px;
-
-    /*background-color: indianred;*/
+    background-color: red;
+    padding: 0 5px;
+    color: white;
+    font-weight: 700;
   }
 
 </style>

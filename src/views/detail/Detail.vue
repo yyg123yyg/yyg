@@ -21,7 +21,7 @@
     <!--      底部-->
     <detail-bottom-bar @addCart="addToCart"/>
     <back-top @click.native="backClick" v-show="isShowBackTop"></back-top>
-
+    <!--    <Toast :message="message" :show="show"/>-->
   </div>
 </template>
 
@@ -51,6 +51,9 @@
     import {debounce} from "components/common/utils/utils";
     import {itemListenerMixin, backTopMixin} from "components/common/utils/mixin";
     // import BackTop from "../../components/contens/backTop/BackTop";
+    //引入vuex
+    import {mapActions} from 'vuex'
+    // import Toast from "components/common/toast/Toast";
 
 
     export default {
@@ -70,7 +73,9 @@
                 itemImgListener: null,
                 themeTopYs: [],
                 getThemeTopY: null,
-                currentIndex: 0
+                currentIndex: 0,
+                // message: '',
+                // show: false
 
             }
         },
@@ -87,7 +92,8 @@
             DetailParamInfo,
             DetailCommentInfo,
             GoodsList,
-            DetailBottomBar
+            DetailBottomBar,
+            // Toast
 
         },
         created() {
@@ -175,6 +181,12 @@
                 //position.y和主题中的值进行对比
 
             },
+            // 映射action中的函数
+            ...mapActions(['addCart']),
+            // ...mapActions({
+            //     add:'addCart'
+            // })
+            // 向购物车添加商品
             addToCart() {
                 //获取商品信息
                 const product = {};
@@ -185,7 +197,20 @@
                 product.iid = this.iid;
                 //将商品添加到购物车
                 // this.$store.commit('addCart', product)
-                this.$store.dispatch('addCart',product)
+                //actions返回一个promise
+                // this.$store.dispatch('addCart', product).then(res => {
+                // })
+                this.addCart(product).then(res => {
+                    // this.show = true;
+                    // this.message = res;
+                    // setTimeout(() => {
+                    //     this.show = false;
+                    //     this.message = ''
+                    // }, 1000)
+                    this.$toast.show(res,1000)
+
+                })
+
             }
         },
         mounted() {
