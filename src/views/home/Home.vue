@@ -3,7 +3,7 @@
     <NavBar class="home-nav">
       <div slot="center">购物界面</div>
     </NavBar>
-    <tab-control :titles="['流行','新款','精选']"
+    <tab-control class="tabControl1" :titles="['流行','新款','精选']"
                  @tabClick="tabClick" ref="tabControl1"
                  v-show="isTabFixed">
     </tab-control>
@@ -189,18 +189,26 @@
   #home {
     /*padding-top: 44px;*/
     height: 100vh;
-    position: relative;
+    width: 100%;
+    position: fixed;
+    /*bottom: 45px;*/
   }
 
   .home-nav {
     background-color: var(--color-tint);
     color: #ffffff;
     font-weight: bold;
-    /*position: fixed;*/
-    /*top: 0;*/
-    /*left: 0;*/
-    /*right: 0;*/
-    /*z-index: 99;*/
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 9;
+  }
+  .tabControl1{
+    position: relative;
+    top: 44px;
+    left: 0;
+    right: 0;
   }
 
   .tab-control {

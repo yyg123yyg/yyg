@@ -79,7 +79,7 @@
 
   .check-button {
     /*background-color: red;*/
-    width: 64px;
+    width: 74px;
     display: flex;
     justify-content: center;
     align-items: center;
