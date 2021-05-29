@@ -36,14 +36,12 @@
 
 <style scoped>
   .bottom-bar {
-    height: 49px;
+    height: 52px;
     position: fixed;
     left: 0;
     right: 0;
     bottom: 0;
-
     display: flex;
-
   }
 
   .bar-item {
@@ -83,7 +81,7 @@
   .cart {
     text-align: center;
     flex: 1;
-    line-height: 49px;
+    line-height: 52px;
     background-color: #f9ff4c;
 
   }
@@ -92,7 +90,7 @@
     background-color: #ff5777;
     flex: 1;
     text-align: center;
-    line-height: 49px;
+    line-height: 52px;
     color: white;
   }
 </style>

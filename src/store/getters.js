@@ -4,5 +4,6 @@ export default {
   },
   cartList(state){
     return state.cartList
-  }
+  },
+  isLoading: state => state.isLoading
 }

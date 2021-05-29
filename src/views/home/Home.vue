@@ -98,6 +98,7 @@
             }
             //监听item中图片的加载完成main.js中利用原型
             this.$bus.$on('itemImageLoad', this.itemImgListener)
+            //默认实在第一个
             this.tabClick(0)
         },
         computed: {

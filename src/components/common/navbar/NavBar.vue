@@ -23,17 +23,18 @@
     display: flex;
     height: 44px;
     line-height: 44px;
-    box-shadow: 0 1px 1px rgba(0,0,0,.3);
+    box-shadow: 0 1px 1px rgba(0, 0, 0, .3);
   }
-  .left,.right{
+
+  .left, .right {
     width: 60px;
   }
-  .center{
+
+  .center {
     flex: 1;
     text-align: center;
 
   }
-
 
 
 </style>

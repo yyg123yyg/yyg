@@ -7,7 +7,7 @@
     <scroll class="content" ref="scroll">
       <cart-list/>
     </scroll>
-<!--    商品汇总-->
+    <!--    商品汇总-->
     <cart-bottom-bar/>
   </div>
 </template>
@@ -49,7 +49,13 @@
 <style scoped>
   .cart {
     height: 100vh;
-    position: relative;
+    position: fixed;
+    width: 100%;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    top: 0;
+
   }
 
   .nav-bar {

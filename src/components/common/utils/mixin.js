@@ -2,11 +2,18 @@ import {debounce} from "./utils";
 import BackTop from "components/contens/backTop/BackTop";
 
 export const itemListenerMixin = {
+  data(){
+    return{
+      itemImgListener:null,
+      refresh:null
+
+    }
+  },
   mounted() {
-    const refresh = debounce(this.$refs.scroll.refresh, 500);
+     this.refresh = debounce(this.$refs.scroll.refresh, 500);
     this.itemImgListener = () => {
       //调用多次
-      refresh()
+      this.refresh()
     }
     this.$bus.$on('itemImgLoad', this.itemImgListener)
   }

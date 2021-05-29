@@ -16,7 +16,7 @@
       <!--      评论信息-->
       <detail-comment-info ref="comment" :comment-info="commentInfo"/>
       <!--      推荐-->
-      <goods-list ref="recommend" :goods="recommends"/>
+      <goods-list @itemImageLoad="itemImageLoad" class="goods-rec" ref="recommend" :goods="recommends"/>
     </scroll>
     <!--      底部-->
     <detail-bottom-bar @addCart="addToCart"/>
@@ -102,7 +102,7 @@
             //根据iid请求详情数据
             getDetail(this.iid).then(res => {
                 //获取顶部的图片轮播数据
-                console.log(res);
+                // console.log(res);
                 const data = res.result;
                 this.topImages = data.itemInfo.topImages;
                 //获取商品信息
@@ -141,11 +141,13 @@
             }, 100)
         },
         methods: {
+            itemImageLoad(){
+                this.$refs.scroll.refresh();
+            },
             //图片加载完成
             imgLoad() {
                 //图片刷新
-
-                this.$refs.scroll.refresh();
+                this.refresh();
 //图片加载完成，获取相应的高度
                 this.getThemeTopY();
                 console.log('df')
@@ -207,7 +209,7 @@
                     //     this.show = false;
                     //     this.message = ''
                     // }, 1000)
-                    this.$toast.show(res,1000)
+                    this.$toast.show(res, 1000)
 
                 })
 
@@ -224,10 +226,11 @@
 
 <style scoped>
   #detail {
-    position: relative;
+    position: fixed;
     z-index: 9;
     background-color: #fff;
     height: 100vh;
+    width: 100%;
   }
 
   .detail-nav {
@@ -239,10 +242,15 @@
     overflow: hidden;
     position: absolute;
     top: 44px;
-    bottom: 49px;
+    bottom: 52px;
     right: 0;
     left: 0;
     width: 100%;
     background-color: #ffffff;
+
+  }
+
+  .goods-rec {
+    /*padding-bottom: 200px;*/
   }
 </style>

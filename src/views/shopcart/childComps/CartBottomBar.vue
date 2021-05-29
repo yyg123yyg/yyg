@@ -9,7 +9,7 @@
       合计:{{totalPrice}}
     </div>
     <div class="calculate" @click="clacClick">
-      去结算：{{checkLength}}
+      去结算：({{checkLength}})
     </div>
   </div>
 </template>
@@ -67,7 +67,7 @@
 
 <style scoped>
   .bottom-bar {
-    height: 40px;
+    height: 50px;
     background-color: #ccc;
     position: fixed;
     left: 0;
@@ -75,15 +75,16 @@
     bottom: 49px;
     padding-left: 10px;
     display: flex;
+    line-height: 50px;
+    text-align: center;
+    /*z-index: 99;*/
   }
 
   .check-button {
-    /*background-color: red;*/
     width: 74px;
     display: flex;
     justify-content: center;
     align-items: center;
-    line-height: 40px;
   }
 
   .CheckBotton {
@@ -97,7 +98,6 @@
   }
 
   .totalPrice {
-    line-height: 40px;
     margin-left: 10px;
     background-color: orange;
     width: 140px;
@@ -105,7 +105,6 @@
 
   .calculate {
     flex: 1;
-    line-height: 40px;
     background-color: red;
     padding: 0 5px;
     color: white;

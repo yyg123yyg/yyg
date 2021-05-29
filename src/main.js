@@ -14,6 +14,11 @@ Vue.prototype.$bus = new Vue();
 //安装toast插件
 Vue.use(toast);
 
+import Vant from 'vant';
+import 'vant/lib/index.css';
+
+Vue.use(Vant);
+
 //解决移动端300ms延迟
 FastClick.attach(document.body);
 //图片懒加载

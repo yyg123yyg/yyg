@@ -5,6 +5,7 @@ export default {
 
     return new Promise((resolve, reject) => {
       //payload是新添加的商品
+      //find返回的是一个内容
       let oldProduct = context.state.cartList.find(item => item.iid === payload.iid);
       if (oldProduct) {//数量加一
         // oldProduct.count += 1;
