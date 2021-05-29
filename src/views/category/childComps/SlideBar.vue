@@ -3,7 +3,7 @@
     <scroll ref="scroll" class="slide-bar-height" @click.native="a">
       <ul class="slide-ul">
         <li class="slide-li" v-for="(item,index) in slideBarList" :key="index"
-            @click="slideBarItemClick(index)"
+            @click="slideBarItemClick(item,index)"
             :class="{active:index===currentIndex}"
         >{{item.title}}
         </li>
@@ -39,8 +39,13 @@
             this.$refs.scroll.refresh()
         },
         methods: {
-            slideBarItemClick(index) {
+            slideBarItemClick(item,index) {
+                const obj = {
+                    maitKey: item.maitKey,
+                    index
+                };
                 this.currentIndex = index;
+                this.$emit("slideBarItemClick", obj);
             },
             a() {
                 this.$refs.scroll.refresh()

@@ -182,7 +182,7 @@
             //保存Y值
             this.saveY = this.$refs.scroll.getScrollY()
             //取消全局事件监听
-            this.$bus.$off('itemImageLoad',)
+            this.$bus.$off('itemImageLoad')
         }
     }
 </script>
