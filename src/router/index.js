@@ -1,6 +1,9 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 
+
+
+
 const Cart = () => import("views/shopcart/Shopcart")
 const Home = () => import("views/home/Home")
 const Category = () => import("views/category/Category")
@@ -36,6 +39,22 @@ const routes = [{
     meta: {show: true}
   }
 ]
+/**
+ * 重写路由的push方法
+ */
+/**
+ * 重写路由的push方法
+ */
+const routerPush = VueRouter.prototype.push
+VueRouter.prototype.push = function push(location) {
+  return routerPush.call(this, location).catch(error=> error)
+}
+
+
+const originalReplace = VueRouter.prototype.replace;
+VueRouter.prototype.replace = function replace(location) {
+  return originalReplace.call(this, location).catch(err => err);
+};
 
 const router = new VueRouter({
   mode: 'history',
